@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "github.com/FeLvi-zzz/sample_grpc/protos/hello";
+
+service Hello {
+  rpc streamHello (HelloRequest) returns (stream HelloResponse) {}
+  rpc Hello (HelloRequest) returns (HelloResponse) {}
+}
+
+message HelloRequest {}
+
+message HelloResponse {
+  string hostname = 1;
+  string time = 2;
+}
