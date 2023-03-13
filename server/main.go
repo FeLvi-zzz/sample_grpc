@@ -11,6 +11,7 @@ import (
 	hellopb "github.com/FeLvi-zzz/sample_grpc/proto"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/reflection"
 )
 
@@ -62,7 +63,12 @@ func main() {
 		log.Fatalf("Failed to listen: %v", err)
 	}
 
-	var opts []grpc.ServerOption
+	var opts []grpc.ServerOption = []grpc.ServerOption{
+		grpc.KeepaliveEnforcementPolicy(keepalive.EnforcementPolicy{
+			MinTime:             5 * time.Second,
+			PermitWithoutStream: true,
+		}),
+	}
 
 	s := grpc.NewServer(opts...)
 
